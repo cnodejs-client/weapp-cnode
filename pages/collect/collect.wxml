@@ -1,0 +1,18 @@
+<view class='weui-panel' wx:for="{{ topics }}" wx:key='{{ item.id }}' catchtap='getTopicDetail' data-id='{{ item.id }}'>
+	<view class='weui-panel__bd'>
+		<view class="weui-media-box weui-media-box_appmsg">
+			<view class='weui-media-box__hd weui-media-box__hd_in-appmsg'>
+				<image class='weui-media-box__thumb' src='{{ item.author.avatar_url }}'></image>
+			</view>
+			<view class='weui-media-box__bd weui-media-box__bd_in-appmsg'>
+				<view class='weui-media-box__title'>
+					<text wx:if='{{ item.top }}' class='label label-primary'>置顶</text>{{ item.title }}</view>
+				<view class='weui-media-box__info'>
+					<text class="weui-media-box__info__meta">{{ item.author.loginname }}</text>
+					<text class="weui-media-box__info__meta">{{ item.reply_count + '/' + item.visit_count }}</text>
+					<text class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{ format(item.last_reply_at) }}</text>
+				</view>
+			</view>
+		</view>
+	</view>
+</view>

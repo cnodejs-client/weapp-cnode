@@ -1,0 +1,60 @@
+<wxs module='format' src='../../components/date.wxs' />
+
+<view>
+   <view class="header-avatar">
+      <navigator url='./info/info' class="avatar-box">
+         <image class="avatar" src="{{ user.avatar_url }}"></image>
+      </navigator>
+      <text class="name">{{ user.loginname }}</text>
+      <text class="name">注册于{{ format(user.create_at) }} {{ user.score }}积分 </text>
+   </view>
+</view>
+
+<!--  创建  -->
+<view class='recent'>
+	<view class='recent-title'>最近话题</view>
+	<view>
+		<template is='topics' data='{{ topics: user.recent_topics, is_recent_topic: true }}'/>
+	</view>
+</view>
+
+<!--  收藏  -->
+<view class='recent'>
+	<view class='recent-title'>收藏话题</view>
+	<view>
+		<template is='topics' data='{{ topics: topics }}'/>
+	</view>
+</view>
+
+<!--  最近  -->
+<view class='recent'>
+	<view class='recent-title'>最近回复</view>
+	<view>
+		<template is='topics' data='{{ topics: user.recent_replies }}'/>
+	</view>
+</view>
+
+<template name='topics'>
+	<view class='weui-panel' wx:for="{{ topics }}" wx:key='{{ item.id }}' catchtap='getTopicDetail' data-id='{{ item.id }}'>
+		<view class='weui-panel__bd'>
+			<view class="weui-media-box weui-media-box_appmsg">
+				<view catchtap='getUserCenter' data-loginname='{{ item.author.loginname }}' wx:if='{{ !is_recent_topic }}' class='weui-media-box__hd weui-media-box__hd_in-appmsg'>
+					<image class='weui-media-box__thumb' src='{{ item.author.avatar_url }}'></image>
+				</view>
+				<view class='weui-media-box__bd weui-media-box__bd_in-appmsg' catchtap='getTopicDetail' data-id='{{ item.id }}'>
+					<view class='weui-media-box__title'>{{ item.title }}</view>
+					<view class='weui-media-box__info'>
+						<text class="weui-media-box__info__meta">{{ item.author.loginname }}</text>
+						<text class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{ format(item.last_reply_at) }}</text>
+					</view>
+				</view>
+			</view>
+		</view>
+	</view>
+
+	<view class='weui-panel' wx:if='{{ !topics[0] }}'>
+		<view class='weui-panel__hd'>
+			暂无
+		</view>
+	</view>
+</template>

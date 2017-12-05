@@ -1,0 +1,171 @@
+@import '../../assets/wxss/wemark.wxss';
+
+.topic-title {
+	/* margin-bottom: 20rpx; */
+}
+.weui-panel {
+	margin-bottom: 3rpx;
+	box-shadow: none;
+}
+.weui-panel.reply-none {
+	border: none;
+	box-shadow: 0 1rpx 4rpx rgba(0, 0, 0, .1);
+}
+
+.weui-media-box {
+	padding: 20rpx;
+}
+.topic-content {
+	padding: 20rpx;
+	background-color: #fff;
+	box-shadow: 0 1rpx 4rpx rgba(0, 0, 0, .1);
+}
+
+.topic-like {
+	padding: 20rpx;
+	font-size: 40rpx;
+	color: #444;
+}
+
+.topic-like button {
+	border-radius: 6rpx;
+}
+
+.topic-reply {
+	background-color: #f8f8f8;
+}
+.topic-reply:last-child {
+	border-bottom: 20rpx solid #fff;
+}
+.topic-reply .weui-panel:last-child {
+	margin-bottom: 0;
+	border: none;
+}
+
+.weui-media-box_appmsg {
+	-webkit-box-align: start;
+	-webkit-align-items:start;
+	align-items:start;
+
+}
+.weui-media-box__hd_in-appmsg {
+	width: 80rpx;
+	height: 80rpx;
+	margin-top: 20rpx;
+	margin-right: 20rpx; 
+	overflow: hidden;
+}
+.weui-media-box__thumb {
+	border-radius: 4rpx;
+}
+
+.weui-media-box__title {
+	color: #444;
+	white-space: pre-wrap;
+	font-size: 34rpx;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.weui-media-box__title text {
+	color: #777;
+}
+.weui-media-box__title text:last-child {
+	font-size: 28rpx;
+	color: #888;
+}
+
+.weui-media-box__desc {
+	font-size: 30rpx;
+}
+
+.weui-media-box__info__meta {
+	font-size: 26rpx;
+	padding-right: 1.5em;
+	color: #888;
+}
+.weui-media-box__info__meta text {
+	font-size: 26rpx;
+}
+.weui-media-box__info__meta_extra {
+	padding-right: 0;
+}
+
+.icon-reply, icon-smell, icon-star {
+	font-size: 36rpx;
+}
+
+.to-view {
+	position: fixed;
+	bottom: 0;
+	opacity: 0;
+}
+
+
+
+.topic-reply-title {
+	padding: 20rpx 20rpx 20rpx 20rpx;
+	font-size: 32rpx;
+	margin-top: 10rpx;
+	display: inline-block;
+	color: #444;
+}
+
+@import '../../assets/wxss/mark.wxss';
+
+.menu-btn {
+	padding-top: 0;
+}
+.reply-input {
+	padding: 20rpx;
+	padding-top: 10rpx; 
+	background-color: #fff;
+}
+.reply-input .textarea {
+	color: #666;
+	font-size: 32rpx;
+	padding: 20rpx 0;
+	height: 300rpx;
+	width: 100%;
+}
+.textarea div div {
+	white-space: pre-wrap;
+}
+
+button:after {
+	display: none;
+}
+.reply-submit {
+	float: right;
+	padding: 0;
+	margin-top: 20rpx;
+	margin-right: 20rpx; 
+	background-color: inherit;
+}
+
+.is {
+	color: #51c332;
+}
+
+
+.make-topic {
+	position: fixed;
+	right: 40rpx;
+	bottom: 150rpx;
+	width: 100rpx;
+	height: 100rpx;
+	padding: 25rpx;
+	text-align: center;
+	box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, .3);
+	background-color: rgba(0, 0, 0, .4);
+	border-radius: 50%;
+	font-size: 0;
+	box-sizing: border-box;
+	transition: all cubic-bezier(.6, 1.01, 1, 1) .3s;
+}
+.make-topic image {
+	width: 50rpx;
+	height: 50rpx;
+}
+
+@import '../../assets/wxss/dialog.wxss'

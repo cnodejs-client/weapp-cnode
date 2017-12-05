@@ -1,0 +1,86 @@
+<wxs module='format' src='../../components/date.wxs' />
+
+
+<view class='main {{ nav && "active" }}' catchtap='handleNavToggle'>
+   <view class='weui-navbar'>
+      <view wx:for='{{ tabs }}' catchtap='handleTabChange' data-tab='{{ item.tab }}' 
+            class='weui-navbar__item {{ item.tab === tab && "weui-bar__item_on" }}' wx:key='{{ item.feild }}'>
+         {{ item.text }}
+      </view>
+      <view class='weui-navbar__item' catchtap='handleNavToggle'>
+         <text class='icon icon-more'></text>
+      </view>
+   </view>
+
+   <swiper current="{{ tab }}" class="content" duration="300" style="height:{{ winHeight - 40 }}px" bindchange="switchContent">
+      <swiper-item wx:for='{{ tabs }}' wx:key='{{ index }}'>
+         <scroll-view scroll-y="true" style='height:100%' bindscroll='getScrollDirection' bindscrolltolower='handleReachBottom' >
+            <view class='weui-panel' wx:for="{{ topics[tab] }}" wx:key='{{ item.id }}'>
+               <view class='weui-panel__bd'>
+                  <view class="weui-media-box weui-media-box_appmsg">
+                     <view catchtap='getUserCenter' data-loginname='{{ item.author.loginname }}' class='weui-media-box__hd weui-media-box__hd_in-appmsg'>
+                        <image class='weui-media-box__thumb' src='{{ item.author.avatar_url }}'></image>
+                     </view>
+                     <view class='weui-media-box__bd weui-media-box__bd_in-appmsg' catchtap='getTopicDetail' data-id='{{ item.id }}'>
+                        <view class='weui-media-box__title'>
+                           <text wx:if='{{ item.top || item.good }}' class='label label-primary'>{{ item.top ? '置顶' : '精华' }}</text>{{ item.title }}</view>
+                        <view class='weui-media-box__info'>
+                           <text class="weui-media-box__info__meta">{{ item.author.loginname }}</text>
+                           <text class="weui-media-box__info__meta">{{ item.reply_count + '/' + item.visit_count }}</text>
+                           <text class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{ format(item.last_reply_at) }}</text>
+                        </view>
+                     </view>
+                  </view>
+               </view>
+            </view>
+
+            <view class='weui-panel' wx:if='{{ !isCompleted[tab] }}'>
+               <view class="weui-loadmore">
+                  <i class="weui-loading"></i>
+               </view>
+            </view>
+            <view class='weui-pabel' wx:else>
+               <view class='weui-loadmore weui-loadmore_line'>
+                  <text class='weui-loadmore__tips'>没有更多了</text>
+               </view>
+            </view>
+         </scroll-view>
+      </swiper-item>
+   </swiper>
+
+	<view class='make-topic {{ isPullDown && "active" }}' catchtap='makeTopic'>
+		<image src='/assets/images/add.png'></image>
+	</view>
+
+</view>
+
+<!--  nav  -->
+
+<view class="nav {{ nav && 'active' }}">
+	<block wx:if='{{ user }}'>
+		<view class='text-center my-info'>
+			<navigator url='/pages/user/user?loginname={{ user.loginname }}'>
+				<image src='{{ user.avatar_url }}'></image>	
+			</navigator>
+			<view>
+				<text>{{ user.loginname }}</text>
+			</view>
+		</view>
+
+		<navigator url='/pages/message/message' class='text-center nav-item'>
+			<text class='badge'>我的消息 <text class='badge__count' wx:if='{{ unReadMsgCount }}'> {{ unReadMsgCount }}</text></text>
+		</navigator>
+
+		<navigator url='/pages/collect/collect?loginname={{ user.loginname }}' class='text-center nav-item'>
+			我的收藏
+		</navigator>
+
+		<view class='text-center nav-item' catchtap='handleLogout'>
+			退出 <text class='icon icon-exit' style='margin-left:10rpx'></text>
+		</view>
+		
+	</block>
+	<block wx:else>
+		<view class='my-info text-center' catchtap='handleLogin'>登入</view>
+	</block>
+</view>

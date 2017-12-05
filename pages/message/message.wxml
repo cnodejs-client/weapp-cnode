@@ -1,0 +1,51 @@
+<wxs module='format' src='../../components/date.wxs' />
+<import src='../../components/wemark.wxml' />
+
+<view class='weui-navbar'>
+	<view class='weui-navbar__item {{ tab == 0 && "weui-bar__item_on" }}' bindtap='handleTabToggle' data-tab='0'>未读</view>
+	<view class='weui-navbar__item {{ tab == 1 && "weui-bar__item_on" }}' bindtap='handleTabToggle' data-tab='1'>全部</view>
+</view>
+
+<swiper current="{{ tab }}" class="content" duration="300" style="height:{{ winHeight - 40 }}px" bindchange="switchContent">
+	<swiper-item>
+		<scroll-view style='height:100%' scroll-y='true'>
+			
+			<template is='messages' data='{{ messages: unReadMessage, hasUnReadMessage: unReadMessage[0] }}' />
+
+			<view class='weui-pabel' wx:if='{{ !unReadMessage[0] }}'>
+				<view class='weui-panel__bd text-center'>
+					<text class='weui-loadmore__tips'>_(:з」∠)_</text>
+				</view>
+			</view>
+		</scroll-view>
+   </swiper-item>
+
+	<swiper-item>
+		<scroll-view style='height:100%' scroll-y='true'>
+			<template is='messages' data='{{ messages: messages, isAll: true }}' />
+		</scroll-view>
+   </swiper-item>
+</swiper>
+
+<view class='read-mark' bindtap='markMessageReadedAll' wx:if='{{ unReadMessage[0] }}'>
+	<image src='/assets/images/read_mark.png'></image>
+</view>
+
+<template name='messages'>
+	<view class='weui-panel' wx:for='{{ messages }}' wx:key='{{ index }}' bindtap='getTopicDetail' data-read='{{ item.has_read }}' data-msg_id='{{ item.id }}' data-topic_id='{{ item.topic.id }}' data-user='{{ item.author.loginname }}'>
+		<view class="weui-panel__bd">
+			<view class='weui-media-box weui-media-box_appmsg'>
+				<view class='weui-media-box__hd weui-media-box__hd_in-appmsg'>
+					<image class='weui-media-box__thumb' src='{{ item.author.avatar_url }}'></image>
+				</view>
+				<view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+					<view class="weui-media-box__title">
+						<text>{{ item.author.loginname }}</text>
+						<text><text wx:if='{{ isAll && !item.has_read }}' class='label label-primary'>未读</text> {{ format(item.create_at) }}</text>
+					</view>
+					<template is="wemark" data="{{ renderList: item.reply.content }}" class='weui-media-box__desc'></template>
+				</view>
+			</view>
+		</view>
+	</view>
+</template>

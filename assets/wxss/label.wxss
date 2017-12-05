@@ -1,0 +1,30 @@
+.label {
+    display: inline-block;
+    font-size: 24rpx;
+    height: 32rpx;
+    color: #666;
+    border: 1rpx solid #999;
+    padding: 0 6rpx;
+    border-radius: 4rpx;
+    margin-right: 20rpx;
+    line-height: 32rpx;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.label-primary {
+    color: #fff !important;
+    background: #80BD01 !important;
+    border: 1rpx solid #80BD01 !important
+}
+
+.label-disabled {
+    color: #cacaca;
+    background: #eee;
+    border: 1rpx solid #e5e5e5
+}
+
+.label-plain.label-primary {
+    color: #f44;
+    background: #fff
+}

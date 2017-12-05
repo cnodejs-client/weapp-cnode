@@ -1,0 +1,12 @@
+<template name='mark'>
+	<view class='menu-btn'>
+		<text class='icon icon-header' bindtap='makeHead'></text>
+		<text class='icon icon-bold' bindtap='makeBold'></text>
+		<text class='icon icon-italic' bindtap='makeItalic'></text>
+		<text class='icon icon-quote' bindtap='makeQuote'></text>
+		<text class='icon icon-ul' bindtap='makeUl'></text>
+		<text class='icon icon-ol' bindtap='makeOl'></text>
+		<text class='icon icon-link' bindtap='makeLink'></text>
+		<text class='icon icon-image' bindtap='makeLink'></text>
+	</view>
+</template>

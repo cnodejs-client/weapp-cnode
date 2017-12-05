@@ -1,0 +1,35 @@
+<import src='../../components/mark.wxml' />
+
+<form bindsubmit='handleFormSubmit'>
+	<view class='weui-cells'>
+		<view class='weui-cell'>
+			<view class='weui-cell__hd'><text class='icon icon-cate'></text></view>
+			<view class='weui-cell__bd'>
+				<picker range='{{ tabs }}' range-key='text' value='tab' bindchange='handlePickerChang'>
+					<view class='picker'>{{ tabs[tab].text }}</view>
+				</picker>
+			</view>
+         <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+		</view>
+
+		<view class='weui-cell'>
+			<view class='weui-cell__hd'><text class='icon icon-title'></text></view>
+			<view class='weui-cell__bd'>
+				<input name='title' placeholder='标题（10个字以上）' bindinput='handleTitleInput' value='{{ title }}'></input>
+			</view>
+		</view>
+
+		<view class='weui-cell'>
+			<view class='weui-cell__bd'>
+				<template is='mark' />
+				<textarea class='weui-textarea' rows='10' name='content' placeholder='内容' bindinput='handleContentInput' value='{{ inputContent }}' show-confirm-bar='{{ false }}' focus='{{ focus }}' cursor='{{ cursor }}'></textarea>
+			</view>
+		</view>
+
+		<view class='weui-cell'>
+			<view class='weui-cell__bd text-center'>
+				<button formType='submit' class='btn btn-primary'>提交</button>
+			</view>
+		</view>
+	</view>
+</form>

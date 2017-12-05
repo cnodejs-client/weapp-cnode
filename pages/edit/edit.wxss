@@ -1,0 +1,25 @@
+/* pages/edit/edit.wxss */
+.weui-cells {
+	margin: 0;
+}
+.weui-cell__hd {
+	flex: 1;
+	display: flex;
+	align-items: center;
+}
+.weui-cell__hd text.icon {
+	font-size: 36rpx;
+}
+.weui-cell__bd {
+	flex: 8;
+}
+.picker, input {
+	vertical-align: top;
+	color: #666;
+}
+.weui-textarea {
+	height: calc(100vh - 500rpx);
+	padding: 20rpx 0;
+}
+
+@import '../../assets/wxss/mark.wxss';

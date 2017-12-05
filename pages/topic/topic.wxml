@@ -1,0 +1,89 @@
+<wxs module='format' src='../../components/date.wxs' />
+<import src='../../components/wemark.wxml' />
+<import src='../../components/mark.wxml' />
+
+ <scroll-view scroll-y='{{ true }}' scroll-into-view='{{ toView }}' style='height: {{ winHeight }}px'> 
+   <!--  title  -->
+   <view class='weui-panel topic-title'>
+      <view class="weui-panel__bd">
+         <view class="weui-media-box weui-media-box_text">
+            <text class="weui-media-box__title"><text class='label label-primary' wx:if='{{ topic.good }}'>精华</text>{{ topic.title }}</text>
+            <view class="weui-media-box__info">
+               <text class='weui-media-box__info__meta'>{{ topic.author.loginname }} <text class='icon icon-user'></text></text>
+               <text class='weui-media-box__info__meta'>{{ topic.visit_count }} <text class='icon icon-view'></text></text>
+               <text class='weui-media-box__info__meta weui-media-box__info__meta_extra'>{{ format(topic.create_at) }} <text class='icon icon-edit'></text></text>
+            </view>
+         </view>
+      </view>
+   </view>
+
+   <!--  content  -->
+   <view class='topic-content'>
+      <template is="wemark" data="{{ renderList: topic.content }}"></template>
+
+      <view class='topic-like text-center' wx:if='{{ topic.author_id !== author_id }}'>
+         <text class='icon icon-star btn {{ topic.is_collect && "is btn-primary" }}' bindtap='handleCollect'></text>
+      </view>
+		<view class='topic-like text-center' wx:else>
+			<text class='btn btn-primary' bindtap='updateTopic'>编辑</text>
+		</view>
+   </view>
+
+   <!--  reply list  -->
+   <view class='topic-reply'>
+      <view class='topic-reply-title'>{{ topic.reply_count }} 条回复</view>
+      <view class='weui-panel' wx:for='{{ topic.replies }}' wx:key='{{ index }}' id='{{ item.author.loginname }}'>
+         <view class="weui-panel__bd">
+            <view class='weui-media-box' style='display:flex'>
+               <view catchtap='getUserCenter' data-loginname='{{ item.author.loginname }}' class='weui-media-box__hd weui-media-box__hd_in-appmsg'>
+                  <image class='weui-media-box__thumb' src='{{ item.author.avatar_url }}'></image>
+               </view>
+               <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                  <view class="weui-media-box__title">
+                     <text>{{ item.author.loginname }}</text>
+                     <text>{{ format(item.create_at) }}</text>
+                  </view>
+                  <template is="wemark" data="{{ renderList: item.content }}" class='weui-media-box__desc'></template>
+                  <view class='weui-media-box__info'>
+                     <text bindtap='handleReplyComment' class='weui-media-box__info__meta icon icon-reply' data-reply_id='{{ item.id }}' data-reply_to='{{ item.author.loginname }}'></text>
+                     <text bindtap='handleReplyGood' class='weui-media-box__info__meta icon icon-smell {{ item.is_uped && "is" }}' data-reply_id='{{ item.id }}' data-index='{{ index }}'></text>
+                  </view>
+               </view>
+            </view>
+         </view>
+      </view>
+   </view>
+
+   <view class='weui-panel reply-none' wx:if='{{ !topic.reply_count }}'>
+      <view class="weui-panel__bd" style='padding:20rpx;color:#888'>
+         暂无回复内容
+      </view>
+   </view>
+
+	<!-- <view class='text-center' style='padding: 50rpx 0'>
+		<text class='btn btn-primary' bindtap='showDialog'>添加回复</text>
+	</view> -->
+	<view class='make-topic' catchtap='showDialog'>
+		<image src='/assets/images/edit.png'></image>
+	</view>
+ </scroll-view> 
+
+<view class="dialog {{ showDialog && 'dialog-show' }}">
+	<view class="dialog__mask" bindtap="toggleDialog" />
+	<view class="dialog__container">
+		<!--  reply form  -->
+		<form bindsubmit="handleReplySubmit">
+			<view class='topic-reply'>
+				<view class='topic-reply-title'>添加回复</view>
+				<view class='reply-input reply-submit'>
+					<button formType="submit" class='btn btn-primary'>提交</button>
+				</view>
+
+				<view class='reply-input' id='to-view'>
+					<template is='mark' />
+					<textarea class='textarea' name='content' row='4' fixed='true' placeholder='回复内容' value='{{ inputContent }}' bindinput='handleReplyInput' show-confirm-bar='{{ false }}' focus='{{ focus }}' cursor='{{ cursor }}' bindfocus='handleFocus' bindblur='handleBlur'></textarea>
+				</view>
+			</view>
+		</form>
+	</view>
+</view>
